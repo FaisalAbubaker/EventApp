@@ -1,5 +1,6 @@
 package com.example.eventapp.navigation
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -21,16 +23,20 @@ import com.example.eventapp.screens.auth.AuthViewModel
 import com.example.eventapp.screens.auth.LoginScreen
 import com.example.eventapp.screens.auth.SignUpScreen
 import com.example.eventapp.screens.auth.SplashScreen
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.auth
 
 @Composable
 fun EventAppNavigation(authViewModel: AuthViewModel, navController: NavHostController) {
+    val context = LocalContext.current
     NavHost(
         navController = navController,
         startDestination = authViewModel.isSignedIn.value
     ){
         authNavigation(navController, authViewModel)
-        mainAppNavigation(navController){
-            authViewModel.logout()
+        mainAppNavigation(navController, logout ={authViewModel.logout(context)} ){
+            authViewModel.auth.currentUser
         }
 
     }
@@ -58,7 +64,8 @@ fun NavGraphBuilder.authNavigation(
 
 fun NavGraphBuilder.mainAppNavigation(
     navController: NavHostController,
-    logout: () -> Unit
+    logout: () -> Unit,
+    userName: () -> FirebaseUser?
 ){
     navigation(
         startDestination = Screens.MainApp.Home.route,
@@ -66,7 +73,7 @@ fun NavGraphBuilder.mainAppNavigation(
     ){
         composable(Screens.MainApp.Home.route){
             Column(Modifier.fillMaxSize()){
-
+                Text(text = "Hello ${userName.invoke()?.displayName.orEmpty()}")
             }
         }
         composable(Screens.MainApp.TaskByDate.route){
@@ -88,14 +95,18 @@ fun NavGraphBuilder.mainAppNavigation(
             }
         }
         composable(Screens.MainApp.AddScreen.route){
-            Column(Modifier.fillMaxSize()
-                .background(Color.Magenta)){
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .background(Color.Magenta)){
 
             }
         }
         composable(Screens.MainApp.StaticsScreen.route){
-            Column(Modifier.fillMaxSize()
-                .background(Color.Green)){
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .background(Color.Green)){
 
             }
         }

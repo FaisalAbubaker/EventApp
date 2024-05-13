@@ -82,7 +82,8 @@ fun SignUpScreen(navController: NavHostController, authViewModel: AuthViewModel)
             Button(onClick = {
                 authViewModel.signup(
                     emailState.value.text,
-                    passwordState.value.text
+                    passwordState.value.text,
+                    usernameState.value.text
                 )
             }, modifier = Modifier.padding(bottom = 50.dp)
                 .width(304.dp)
@@ -106,7 +107,7 @@ fun SignUpScreen(navController: NavHostController, authViewModel: AuthViewModel)
                     .weight(1f)
                     .background(Color.Gray)) {}
             }
-            LoginWithGoogle(authViewModel = authViewModel)
+            LoginWithGoogle()
             Row(Modifier.padding(top = 80.dp)) {
                 Text(text = "Already have an account? ")
                 Text(

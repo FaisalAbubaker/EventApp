@@ -102,7 +102,7 @@ fun LoginScreen(navController: NavHostController, authViewModel: AuthViewModel){
                     .weight(1f)
                     .background(Color.Gray)) {}
             }
-            LoginWithGoogle(authViewModel = authViewModel)
+            LoginWithGoogle()
             Row(Modifier.padding(top = 120.dp)) {
                 Text(text = "Don't have an account? ")
                 Text(

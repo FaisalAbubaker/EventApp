@@ -24,6 +24,7 @@ import com.example.eventapp.screens.auth.AuthViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.example.eventapp.BuildConfig
 import com.google.firebase.Firebase
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.GoogleAuthProvider
@@ -32,29 +33,25 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 @Composable
-fun LoginWithGoogle(authViewModel: AuthViewModel) {
+fun LoginWithGoogle() {
     var user by remember { mutableStateOf(Firebase.auth.currentUser) }
     val launcher = rememberFirebaseAuthLauncher(
         onAuthComplete = { result ->
             user = result.user
-            authViewModel.isSignedIn.value = Screens.MainApp.route
         },
         onAuthError = {
             user = null
-            authViewModel.isSignedIn.value = Screens.Authentication.route
         }
     )
-    val token =
-        "884104348545-hse5bjg63prcg850b990c1d0953tcum2.apps.googleusercontent.com"
+
     val context = LocalContext.current
     if (user == null) {
-        authViewModel.isSignedIn.value = Screens.Authentication.route
         Image(modifier = Modifier
             .padding(4.dp)
             .clickable {
                 val gso = GoogleSignInOptions
                     .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(token)
+                    .requestIdToken(BuildConfig.token)
                     .requestEmail()
                     .build()
                 val googleSignInClient = GoogleSignIn.getClient(context, gso)
@@ -63,8 +60,6 @@ fun LoginWithGoogle(authViewModel: AuthViewModel) {
             painter = painterResource(id = R.drawable.google_rounded),
             contentDescription = "google"
         )
-    } else {
-        authViewModel.isSignedIn.value = Screens.MainApp.route
     }
 }
 
