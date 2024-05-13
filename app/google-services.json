@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "884104348545",
+    "project_id": "room-with-authentication",
+    "storage_bucket": "room-with-authentication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884104348545:android:b7332d0ea01c49d5a01e80",
+        "android_client_info": {
+          "package_name": "com.example.eventapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "884104348545-gi2d6f8gpanqgq57imed1cs84qo6r9em.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eventapp",
+            "certificate_hash": "1706033c981719ec34e52e351363f170f37011ee"
+          }
+        },
+        {
+          "client_id": "884104348545-hse5bjg63prcg850b990c1d0953tcum2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2VFETBXLp8WLESGKhZeU-LaTdpif_oKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "884104348545-hse5bjg63prcg850b990c1d0953tcum2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
