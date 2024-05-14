@@ -3,13 +3,19 @@ package com.example.eventapp.navigation
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -23,6 +29,7 @@ import com.example.eventapp.screens.auth.AuthViewModel
 import com.example.eventapp.screens.auth.LoginScreen
 import com.example.eventapp.screens.auth.SignUpScreen
 import com.example.eventapp.screens.auth.SplashScreen
+import com.example.eventapp.screens.task.TaskViewModel
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.auth
@@ -77,11 +84,23 @@ fun NavGraphBuilder.mainAppNavigation(
             }
         }
         composable(Screens.MainApp.TaskByDate.route){
-            Column(
-                Modifier
+            val viewmodel: TaskViewModel = hiltViewModel()
+            LazyColumn(
+                modifier = Modifier
                     .fillMaxSize()
-                    .background(Color.Yellow)){
-
+            ) {
+                item{
+                    val result = viewmodel.tasks.collectAsState(null)
+                    val tags = viewmodel.tags.collectAsState(null)
+                    val tasksByTag = viewmodel.tasksByTags.collectAsState(null)
+                    
+                    Text(text = result.value.toString())
+                    Spacer(modifier = Modifier.padding(vertical = 12.dp))
+                    Text(text = tasksByTag.value.toString())
+                    Spacer(modifier = Modifier.padding(vertical = 12.dp))
+                    Text(text = tags.value.toString())
+                }
+                
             }
         }
         composable(Screens.MainApp.CategoryScreen.route){

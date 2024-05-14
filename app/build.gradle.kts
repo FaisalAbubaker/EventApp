@@ -17,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.eventapp.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -101,4 +101,26 @@ dependencies {
 
     //navigation
     implementation ("androidx.navigation:navigation-compose:2.6.0")
+
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.48")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.48")
+    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.2.1")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
+
+    //ui testing
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.05.01"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation("androidx.navigation:navigation-testing:2.6.0")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+
+
+    //unit test
+
+    // Testing dependencies
+    testImplementation ("org.mockito:mockito-core:3.11.2")
+    testImplementation ("androidx.arch.core:core-testing:2.1.0")
+    // Firebase Authentication
+    implementation ("com.google.firebase:firebase-auth:21.0.1")
 }
