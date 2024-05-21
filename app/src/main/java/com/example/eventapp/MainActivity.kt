@@ -65,7 +65,6 @@ class MainActivity : ComponentActivity() {
         setContent {
             val authViewModel: AuthViewModel = hiltViewModel()
             EventAppTheme {
-
                 val navController = rememberNavController()
 
                 var showBottomBar by rememberSaveable { mutableStateOf(false) }
