@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.eventapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.appcompat)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -129,4 +130,16 @@ dependencies {
     implementation("com.kizitonwose.calendar:compose:2.5.1")
     implementation("io.github.vanpra.compose-material-dialogs:datetime:0.8.1-rc")
     coreLibraryDesugaring ("com.android.tools:desugar_jdk_libs:2.0.4")
+
+    implementation("com.patrykandpatrick.vico:compose:2.0.0-alpha.20")
+    implementation("com.patrykandpatrick.vico:compose-m3:2.0.0-alpha.20")
+    implementation("com.patrykandpatrick.vico:core:2.0.0-alpha.20")
+
+    implementation("co.yml:ycharts:2.1.0")
+
+    //Glance Widget
+    implementation("androidx.glance:glance-appwidget:1.0.0")
+    implementation("androidx.glance:glance-material3:1.0.0")
+
+
 }

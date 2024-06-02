@@ -1,6 +1,7 @@
 package com.example.eventapp.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -25,13 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.eventapp.R
+import com.example.eventapp.navigation.Screens
 import com.example.eventapp.ui.theme.Navy
 import com.google.firebase.auth.FirebaseUser
 
 @Composable
-fun UserImageWithEmail(user: FirebaseUser?) {
+fun UserImageWithEmail(user: FirebaseUser?, navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -50,7 +54,10 @@ fun UserImageWithEmail(user: FirebaseUser?) {
             Card(
                 modifier = Modifier
                     .size(64.dp)
-                    .align(Alignment.CenterVertically),
+                    .align(Alignment.CenterVertically)
+                    .clickable {
+                        navController.navigate(Screens.MainApp.SettingsScreen.route)
+                    },
                 shape = RoundedCornerShape(20),
                 colors = CardDefaults.cardColors(
                     containerColor = Color.White
@@ -113,10 +120,4 @@ fun UserImageWithEmail(user: FirebaseUser?) {
             color = Color.DarkGray
         )
     }
-}
-
-@Preview
-@Composable
-fun UserImageWithEmailPreview() {
-    UserImageWithEmail(null)
 }

@@ -135,8 +135,8 @@ fun MonthHeader(daysOfWeek: YearMonth, state: CalendarState) {
     ) {
         val monthName =
             daysOfWeek.month.getDisplayName(
-                java.time.format.TextStyle.FULL,
-                Locale.getDefault()
+                TextStyle.FULL,
+                Locale.ENGLISH
             )
         Text(
             monthName.orEmpty().plus(daysOfWeek.year.toString()),
@@ -186,7 +186,7 @@ fun DaysOfWeekTitle(daysOfWeek: List<DayOfWeek>) {
             Text(
                 modifier = Modifier.weight(1f),
                 textAlign = TextAlign.Center,
-                text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()).dropLast(1),
+                text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH).dropLast(1),
                 color = Color.Black,
                 fontSize = 14.sp
             )

@@ -27,9 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.eventapp.R
 import com.example.eventapp.component.CustomTextField
 import com.example.eventapp.getAllColors
 import com.example.eventapp.getAllSystemIcons
@@ -39,7 +41,7 @@ import com.example.eventapp.ui.theme.PrimaryColor
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun AddTagDialog(navController: NavHostController, addTaskViewModel: AddTaskViewModel) {
+fun AddTagDialog(navController: NavHostController, taskViewModel: TaskViewModel) {
     var isTagValid by remember {
         mutableStateOf(false)
     }
@@ -61,17 +63,17 @@ fun AddTagDialog(navController: NavHostController, addTaskViewModel: AddTaskView
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "New Tag",
+                text = stringResource(id = R.string.new_tag),
                 color = Navy,
                 fontWeight = FontWeight.Bold
             )
 
             CustomTextField(
-                label = "Tag Name",
+                label = stringResource(id = R.string.tag_name),
                 textColor = PrimaryColor,
-                value = addTaskViewModel.tagName
+                value = taskViewModel.tagName
             )
-            Text(text = "Tag Color", color = PrimaryColor, modifier = Modifier.padding(bottom = 5.dp))
+            Text(text = stringResource(id = R.string.tag_color), color = PrimaryColor, modifier = Modifier.padding(bottom = 5.dp))
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalArrangement = Arrangement.spacedBy(6.dp)
@@ -80,7 +82,7 @@ fun AddTagDialog(navController: NavHostController, addTaskViewModel: AddTaskView
                     Canvas(modifier = Modifier
                         .size(50.dp)
                         .clickable {
-                            addTaskViewModel.tagColor.value = it
+                            taskViewModel.tagColor.value = it
                                 .toArgb()
                                 .toString()
                         }) {
@@ -89,7 +91,7 @@ fun AddTagDialog(navController: NavHostController, addTaskViewModel: AddTaskView
                 }
             }
             Spacer(modifier = Modifier.size(22.dp))
-            Text(text = "Tag Icon", color = PrimaryColor)
+            Text(text = stringResource(id = R.string.tag_icon), color = PrimaryColor)
             FlowRow(
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp)
@@ -101,7 +103,7 @@ fun AddTagDialog(navController: NavHostController, addTaskViewModel: AddTaskView
                         modifier = Modifier
                             .size(50.dp)
                             .clickable {
-                                addTaskViewModel.tagIcon.value = getIconName(it)
+                                taskViewModel.tagIcon.value = getIconName(it)
                             })
                 }
             }
@@ -118,18 +120,18 @@ fun AddTagDialog(navController: NavHostController, addTaskViewModel: AddTaskView
                         navController.popBackStack()
                     }, shape = RoundedCornerShape(16.dp)
                 ) {
-                    Text(text = "Cancel")
+                    Text(text = stringResource(id = R.string.cancel))
 
                 }
 
                 Button(
                     modifier = Modifier.weight(1f),
                     onClick = {
-                        addTaskViewModel.addTag()
+                        taskViewModel.addTag()
                         navController.popBackStack()
                     }, shape = RoundedCornerShape(16.dp)
                 ) {
-                    Text(text = "Save", color = Color.White)
+                    Text(text = stringResource(id = R.string.save), color = Color.White)
                 }
             }
         }

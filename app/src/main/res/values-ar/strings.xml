@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="splash_sub">خطط لما ستفعله لتكون أكثر تنظيمًا لهذا اليوم وغدًا وما بعده</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="sign_up">تسجيل حساب جديد</string>
+    <string name="email">البريد الإلكتروني</string>
+    <string name="password">كلمة المرور</string>
+    <string name="username">اسم المستخدم</string>
+    <string name="forgot_password">نسيت كلمة المرور؟</string>
+    <string name="or_with">أو باستخدام</string>
+    <string name="dont">ليس لديك حساب؟ </string>
+    <string name="already">لديك حساب؟  </string>
+    <string name="create">إنشاء</string>
+    <string name="hi">مرحباً </string>
+    <string name="welcome_sub">دعونا نجعل هذا اليوم مثمرا</string>
+    <string name="my_tasks">مهامي</string>
+    <string name="completed">منجز</string>
+    <string name="ongoing">مستمر</string>
+    <string name="cancelled">ملغي</string>
+    <string name="pending">قيد الانتظار</string>
+    <string name="today_tasks">مهام اليوم</string>
+    <string name="view_all">عرض الكل</string>
+    <string name="search_for_task">ابحث عن مهمة</string>
+    <string name="task"> مهمة</string>
+    <string name="today">اليوم</string>
+    <string name="edit">تعديل</string>
+    <string name="delete">حذف</string>
+    <string name="add_task">اضافة مهمة</string>
+    <string name="title">العنوان</string>
+    <string name="date">التاريخ</string>
+    <string name="time_from">وقت البداية</string>
+    <string name="time_to">وقت النهاية</string>
+    <string name="description">الوصف</string>
+    <string name="add_tag">+ إضافة علامة جديدة</string>
+    <string name="update_task">تعديل المهمة</string>
+    <string name="update">تعديل</string>
+    <string name="tags">العلامات</string>
+    <string name="new_tag">علامة جديدة</string>
+    <string name="tag_name">اسم العلامة</string>
+    <string name="tag_color">لون العلامة</string>
+    <string name="tag_icon">ايقونة العلامة</string>
+    <string name="save">حفظ</string>
+    <string name="cancel">الغاء</string>
+    <string name="reminder_mode">وضع التذكير</string>
+    <string name="ring">رنين</string>
+    <string name="edit_time">تعديل الوقت</string>
+    <string name="no_tasks">"ليس لديك أي جدول زمني اليوم.\n" +
+                                    "اضغط على زر علامة الجمع لإنشاء مهمة جديدة."</string>
+    <string name="settings">الإعدادات</string>
+    <string name="general">العام</string>
+    <string name="language">اللغة</string>
+    <string name="delete_account">حذف الحساب</string>
+    <string name="notifications">التنبيهات</string>
+    <string name="allow_notifications">السماح بالتنبيهات</string>
+    <string name="allow_notif_rings">السماح برنة التنبيهات</string>
+</resources>

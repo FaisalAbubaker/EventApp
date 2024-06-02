@@ -28,6 +28,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -38,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.eventapp.R
 import com.example.eventapp.component.LoginWithGoogle
 import com.example.eventapp.navigation.Screens
 import com.example.eventapp.ui.theme.PrimaryColor
@@ -47,13 +49,13 @@ fun LoginScreen(navController: NavHostController, authViewModel: AuthViewModel){
     val emailState = remember { mutableStateOf(TextFieldValue()) }
     val passwordState = remember { mutableStateOf(TextFieldValue()) }
     Column(Modifier.fillMaxSize()) {
-        Text(text = "Login", fontSize = 36.sp, modifier = Modifier.padding(top = 100.dp, start = 36.dp),
+        Text(text = stringResource(id = R.string.login), fontSize = 36.sp, modifier = Modifier.padding(top = 100.dp, start = 36.dp),
             fontWeight = FontWeight.Bold, color = PrimaryColor)
         Column(Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally) {
             TextField(
                 value = emailState.value, onValueChange = { emailState.value = it },
-                label = { Text(text = "Email") },
+                label = { Text(text = stringResource(id = R.string.email)) },
                 leadingIcon = { Icon(imageVector = Icons.Outlined.Email, contentDescription = "")},
                 modifier = Modifier
                     .padding(top = 50.dp, bottom = 20.dp)
@@ -62,7 +64,7 @@ fun LoginScreen(navController: NavHostController, authViewModel: AuthViewModel){
                     focusedContainerColor = Color.White)
             )
             TextField(value = passwordState.value, onValueChange = { passwordState.value = it },
-                label = { Text(text = "Password") },
+                label = { Text(text = stringResource(id = R.string.password)) },
                 leadingIcon = { Icon(imageVector = Icons.Outlined.Lock, contentDescription = "") },
                 modifier = Modifier
                     .padding(bottom = 20.dp)
@@ -70,7 +72,7 @@ fun LoginScreen(navController: NavHostController, authViewModel: AuthViewModel){
                 colors = TextFieldDefaults.colors(unfocusedContainerColor = Color.White,
                     focusedContainerColor = Color.White),
                 visualTransformation = PasswordVisualTransformation())
-            Text(text = "Forgot Password?", fontSize = 12.sp,
+            Text(text = stringResource(id = R.string.forgot_password), fontSize = 12.sp,
                 color = PrimaryColor,
                 modifier = Modifier.align(Alignment.End)
                     .padding(end = 40.dp, bottom = 80.dp)
@@ -84,7 +86,7 @@ fun LoginScreen(navController: NavHostController, authViewModel: AuthViewModel){
                 .width(304.dp)
                 .height(52.dp)
             ) {
-                Text(text = "Login", fontSize = 18.sp, color = Color.White)
+                Text(text = stringResource(id = R.string.login), fontSize = 18.sp, color = Color.White)
             }
             Row(Modifier.padding(start = 30.dp, end = 30.dp, bottom = 5.dp).fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Box(modifier = Modifier
@@ -92,7 +94,7 @@ fun LoginScreen(navController: NavHostController, authViewModel: AuthViewModel){
                     .weight(1f)
                     .background(Color.Gray)) {}
                 Text(
-                    text = "or with", modifier = Modifier.weight(1f),
+                    text = stringResource(id = R.string.or_with), modifier = Modifier.weight(1f),
                     style = TextStyle(
                         textAlign = TextAlign.Center
                     ),
@@ -104,9 +106,9 @@ fun LoginScreen(navController: NavHostController, authViewModel: AuthViewModel){
             }
             LoginWithGoogle()
             Row(Modifier.padding(top = 120.dp)) {
-                Text(text = "Don't have an account? ")
+                Text(text = stringResource(id = R.string.dont))
                 Text(
-                    text = "Sign Up",
+                    text = stringResource(id = R.string.sign_up),
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.clickable { navController.navigate(Screens.Authentication.SignUp.route) })
             }

@@ -21,10 +21,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.eventapp.R
 import com.example.eventapp.ui.theme.Navy
 import com.example.eventapp.ui.theme.PrimaryColor
 import com.kizitonwose.calendar.compose.WeekCalendar
@@ -60,7 +62,7 @@ fun CalendarWeeklyView(onDateSelected: (LocalDate) -> Unit) {
             WeekHeaderView(
                 it.days.first().date.yearMonth.month.getDisplayName(
                     TextStyle.FULL,
-                    Locale.getDefault()
+                    Locale.ENGLISH
                 ).plus(state.lastVisibleWeek.days.first().date.year)
             )
         },
@@ -84,7 +86,7 @@ fun WeekHeaderView(monthName: String) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            "Task",
+            stringResource(id = R.string.task),
             modifier = Modifier,
             fontWeight = FontWeight.Bold,
             fontSize = 22.sp,
@@ -121,7 +123,7 @@ fun Day(day: LocalDate, isSelected: Boolean, onDateSelected: (LocalDate) -> Unit
         Text(
             text = day.dayOfWeek.getDisplayName(
                 TextStyle.SHORT,
-                Locale.getDefault()
+                Locale.ENGLISH
             ),
             color = if (isSelected) Color.White else Color.Black,
             fontSize = 16.sp,

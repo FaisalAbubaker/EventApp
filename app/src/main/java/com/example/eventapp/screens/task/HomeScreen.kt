@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -57,7 +58,7 @@ fun HomeScreen(invoke: FirebaseUser?, navController: NavHostController, viewMode
     val onGoingTask = viewModel.onGoingTasks.collectAsState(initial = null)
     val pendingTask = viewModel.pendingTasks.collectAsState(initial = null)
 
-    val tasksList = viewModel.taskWithTags
+    val tasksList = viewModel.taskWithTags.value
 
     LazyColumn(
         modifier = Modifier
@@ -72,7 +73,7 @@ fun HomeScreen(invoke: FirebaseUser?, navController: NavHostController, viewMode
             HeaderView(invoke?.displayName.orEmpty(), invoke?.photoUrl)
             Spacer(modifier = Modifier.size(16.dp))
             Text(
-                "My Tasks",
+                stringResource(id = R.string.my_tasks),
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 color = Navy
@@ -88,7 +89,7 @@ fun HomeScreen(invoke: FirebaseUser?, navController: NavHostController, viewMode
                 ) {
                     TaskCategoryCard(
                         TaskType.Completed.type,
-                        completedTask.value?.first()?.tasks?.size.toString().plus("Task"),
+                        completedTask.value?.tasks?.size.toString().plus(stringResource(id = R.string.task)),
                         Color(0xFF7DC8E7),
                         height = 220.dp,
                         onClick = {
@@ -105,7 +106,7 @@ fun HomeScreen(invoke: FirebaseUser?, navController: NavHostController, viewMode
                         })
                     TaskCategoryCard(
                         TaskType.Pending.type,
-                        pendingTask.value?.first()?.tasks?.size.toString().plus("Task"),
+                        pendingTask.value?.tasks?.size.toString().plus(stringResource(id = R.string.task)),
                         Color(0xFF7D88E7),
                         height = 190.dp,
                         onClick = {
@@ -129,7 +130,7 @@ fun HomeScreen(invoke: FirebaseUser?, navController: NavHostController, viewMode
                 ) {
                     TaskCategoryCard(
                         TaskType.Cancelled.type,
-                        cancelledTask.value?.first()?.tasks?.size.toString().plus("Task"),
+                        cancelledTask.value?.tasks?.size.toString().plus(stringResource(id = R.string.task)),
                         Color(0xFFE77D7D),
                         height = 190.dp,
                         onClick = {
@@ -146,7 +147,7 @@ fun HomeScreen(invoke: FirebaseUser?, navController: NavHostController, viewMode
                         })
                     TaskCategoryCard(
                         TaskType.OnGoing.type,
-                        onGoingTask.value?.first()?.tasks?.size.toString().plus("Task"),
+                        onGoingTask.value?.tasks?.size.toString().plus(stringResource(id = R.string.task)),
                         Color(0xFF81E89E),
                         height = 220.dp,
                         onClick = {
@@ -176,13 +177,13 @@ fun HomeScreen(invoke: FirebaseUser?, navController: NavHostController, viewMode
             ) {
 
                 Text(
-                    "Today Tasks",
+                    stringResource(id = R.string.today_tasks),
                     fontWeight = FontWeight.Bold,
                     fontSize = 24.sp,
                     color = Navy
                 )
                 Text(
-                    "View all",
+                    stringResource(id = R.string.view_all),
                     modifier = Modifier
                         .padding(top = 8.dp)
                         .clickable {
@@ -193,8 +194,15 @@ fun HomeScreen(invoke: FirebaseUser?, navController: NavHostController, viewMode
                 )
             }
         }
-        items(tasksList.value) {
-            TaskCard(taskTitle = it.task.title, timeFrom = it.task.timeFrom, timeTo = it.task.timeTo, tag = it.tags, it.task, viewModel)
+        items(tasksList.orEmpty()) {
+            TaskCard(taskTitle = it.task.title,
+                timeFrom = it.task.timeFrom,
+                timeTo = it.task.timeTo,
+                taskId = it.task.taskId,
+                navController = navController,
+                viewModel = viewModel,
+                tag = it.tags,
+                task = it.task)
         }
     }
 }
@@ -213,13 +221,13 @@ fun HeaderView(userName: String, photo: Uri?) {
 
         Column {
             Text(
-                "Hi, $userName",
+                text = stringResource(id = R.string.hi),
                 fontWeight = FontWeight.Bold,
                 fontSize = 24.sp,
                 color = Navy
             )
             Text(
-                "Let's make this day productive",
+                stringResource(id = R.string.welcome_sub),
                 modifier = Modifier.padding(vertical = 8.dp),
                 fontSize = 14.sp,
                 color = Color.DarkGray
@@ -238,8 +246,7 @@ fun HeaderView(userName: String, photo: Uri?) {
             ),
 
             ) {
-            //todo use coil
-            if (photo.toString().isEmpty()) {
+            if (photo == null) {
                 Image(
                     painter = painterResource(id = R.drawable.user_avatar_male),
                     contentDescription = "profile picture",

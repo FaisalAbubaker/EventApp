@@ -11,8 +11,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.eventapp.R
 import com.example.eventapp.component.TagCard
 import com.example.eventapp.component.UserImageWithEmail
 import com.example.eventapp.iconByName
@@ -30,7 +32,7 @@ fun CategoryScreen(
     val tagsWithTasksList = viewModel.tagWithTasks
 
     Column {
-        UserImageWithEmail(user = user)
+        UserImageWithEmail(user = user, navController)
         LazyVerticalGrid(
             modifier = Modifier
                 .fillMaxWidth()
@@ -44,7 +46,7 @@ fun CategoryScreen(
                     Color(it.tag.color.toIntOrNull() ?: PrimaryColor.toArgb()),
                     iconByName(it.tag.iconName),
                     it.tag.name,
-                    "${it.tasks.size} Task"
+                    "${it.tasks.size} ".plus(stringResource(id = R.string.task))
                 ) {
                     navController.navigate("${Screens.MainApp.TaskByCategory.route}/${it.tag.name}")
                 }

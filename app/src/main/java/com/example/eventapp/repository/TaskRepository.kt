@@ -1,6 +1,7 @@
 package com.example.eventapp.repository
 
 import com.example.eventapp.data.dao.TaskDao
+import com.example.eventapp.data.entity.SearchResults
 import com.example.eventapp.data.entity.TagWithTaskLists
 import com.example.eventapp.data.entity.Tags
 import com.example.eventapp.data.entity.Task
@@ -17,9 +18,6 @@ class TaskRepository @Inject constructor(
         return taskDao.addTask(task)
     }
 
-    suspend fun getId(taskId: Long): Long{
-        return taskDao.getTaskId(taskId)
-    }
     suspend fun insertTaskTagCrossRefs(taskTagCrossRefs: List<TaskTagCrossRef>) {
         taskDao.insertTaskTagCrossRefs(taskTagCrossRefs)
     }
@@ -29,26 +27,16 @@ class TaskRepository @Inject constructor(
         taskDao.deleteTask(task)
     }
 
-    fun getAllTasks(): Flow<List<Task>> {
-        return taskDao.getAllTasks()
-    }
-
     suspend fun insertTag(tag: Tags) {
         taskDao.upsertTag(tag)
     }
 
-
-    suspend fun deleteTag(tag: Tags) {
-        taskDao.deleteTag(tag)
-    }
-
-    fun getTagWithTasksList(tagName: String): Flow<List<TagWithTaskLists>> {
+    fun getTagWithTasksList(tagName: String): Flow<TagWithTaskLists> {
         return taskDao.getTagsWithTask(tagName)
     }
 
-    fun getAllTags(): Flow<List<Tags>> {
-        return taskDao.getAllTags()
-    }
+    suspend fun getAllTags() = taskDao.getAllTags()
+
 
     suspend fun insertTagList(tagList: List<Tags>) {
         return taskDao.upsertTagList(tagList)
@@ -60,4 +48,19 @@ class TaskRepository @Inject constructor(
 
     fun getTagWithTaskLists() = taskDao.getTagWithTaskLists()
 
+    suspend fun searchCombined(searchQuery: String): SearchResults {
+        return taskDao.searchCombined(searchQuery)
+    }
+
+    suspend fun getTaskWithTagsById(taskId: Long) = taskDao.getTaskWithTagsById(taskId)
+
+    fun getAllTaskWithTags() = taskDao.getAllTaskWithTags()
+
+    suspend fun updateTaskWithTags(task: Task, tags: List<Tags>) {
+        taskDao.updateTaskWithTags(task, tags)
+    }
+
+    suspend fun getAllTasksWithTags(): List<TaskWithTags> {
+        return taskDao.getAllTasksWithTags()
+    }
 }

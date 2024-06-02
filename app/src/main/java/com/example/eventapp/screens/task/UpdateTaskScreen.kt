@@ -17,6 +17,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,6 +29,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavHostController
 import com.example.eventapp.R
 import com.example.eventapp.component.AddTagsListView
@@ -37,10 +39,28 @@ import com.example.eventapp.component.TimePickerDialog
 import com.example.eventapp.navigation.Screens
 import com.example.eventapp.ui.theme.PrimaryColor
 
-
 @Composable
-fun AddTaskScreen(navController: NavHostController, viewModel: TaskViewModel) {
+fun UpdateTaskScreen(
+    navController: NavHostController,
+    viewModel: TaskViewModel,
+    taskId: Long?,
+    navBackStackEntry: NavBackStackEntry
+) {
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        viewModel.getAllTag()
+        if (taskId != null) {
+            viewModel.getSelectedTask(taskId)
+        }
+
+    }
+    if (navBackStackEntry.savedStateHandle.get<String>("selectedDate")?.isNotEmpty() == true) {
+        viewModel.taskDate.value = navBackStackEntry.savedStateHandle.get<String>("selectedDate")!!
+    }
+
     val allTags = viewModel.allTags.collectAsState()
+
+
     val showStartTimeTimeDialog = remember {
         mutableStateOf(false)
     }
@@ -52,7 +72,7 @@ fun AddTaskScreen(navController: NavHostController, viewModel: TaskViewModel) {
     LazyColumn(modifier = Modifier.padding(horizontal = 16.dp)) {
         item {
             //  header
-            TasksHeaderView(stringResource(id = R.string.add_task)) {
+            TasksHeaderView(stringResource(id = R.string.update_task)) {
                 navController.popBackStack()
             }
         }
@@ -81,7 +101,7 @@ fun AddTaskScreen(navController: NavHostController, viewModel: TaskViewModel) {
                         .clickable {
                             showStartTimeTimeDialog.value = true
                         },
-                    stringResource(id = R.string.time_from), Color.Gray, viewModel.startTime, isReadOnly = true
+                    stringResource(id = R.string.time_from), Color.Gray, viewModel.startTime, isReadOnly = true,
                 )
                 CustomTextField(
                     Modifier
@@ -89,7 +109,7 @@ fun AddTaskScreen(navController: NavHostController, viewModel: TaskViewModel) {
                         .clickable {
                             showEndTimeTimeDialog.value = true
                         },
-                    stringResource(id = R.string.time_to), Color.Gray, viewModel.endTime, isReadOnly = true
+                    stringResource(id = R.string.time_to), Color.Gray, viewModel.endTime, isReadOnly = true,
                 )
             }
             CustomTextField(Modifier, stringResource(id = R.string.description), Color.Gray, viewModel.description)
@@ -102,14 +122,11 @@ fun AddTaskScreen(navController: NavHostController, viewModel: TaskViewModel) {
                 viewModel.selectedTags.value
             }
         }
-
         item {
-            //add task button
-            ButtonAddTask(viewModel, LocalContext.current, viewModel.title.value?.isNotEmpty() == true,
-                viewModel.taskDate.value?.isNotEmpty() == true,
-                viewModel.startTime.value?.isNotEmpty() == true,
-                viewModel.endTime.value?.isNotEmpty() == true,
-                viewModel.description.value?.isNotEmpty() == true,)
+            //update task button
+            ButtonUpdateTask(viewModel, taskId, context, viewModel.title.value.isNotEmpty(),
+                viewModel.taskDate.value.isNotEmpty(), viewModel.startTime.value.isNotEmpty(),
+                viewModel.endTime.value.isNotEmpty(), viewModel.description.value.isNotEmpty())
         }
     }
     if (showStartTimeTimeDialog.value) {
@@ -135,17 +152,17 @@ fun AddTaskScreen(navController: NavHostController, viewModel: TaskViewModel) {
 }
 
 @Composable
-fun ButtonAddTask(addTask: TaskViewModel, context: Context,
-                  title: Boolean,
-                  date: Boolean,
-                  timeF: Boolean,
-                  timeT: Boolean,
-                  desc: Boolean) {
+fun ButtonUpdateTask(addTask: TaskViewModel, taskId: Long?, context: Context,
+                     title: Boolean,
+                     date: Boolean,
+                     timeF: Boolean,
+                     timeT: Boolean,
+                     desc: Boolean) {
     Button(
         onClick = {
-            if(title && date && timeF && timeT && desc) {
-                addTask.addTask()
-                Toast.makeText(context, "Task added successfully", Toast.LENGTH_SHORT).show()
+            if (taskId != null && title && date && timeF && timeT && desc) {
+                addTask.updateTask(taskId)
+                Toast.makeText(context, "Task updated successfully", Toast.LENGTH_SHORT).show()
             }
             else{
                 Toast.makeText(context, "Please fill all fields", Toast.LENGTH_LONG).show()
@@ -157,14 +174,14 @@ fun ButtonAddTask(addTask: TaskViewModel, context: Context,
             .padding(22.dp)
             .padding(bottom = 100.dp)
             .semantics {
-                testTag = "Add Task Button"
+                testTag = "Update Task Button"
             },
         colors = ButtonDefaults.buttonColors(
             containerColor = PrimaryColor
         )
     ) {
         Text(
-            modifier = Modifier.padding(vertical = 8.dp), text = stringResource(id = R.string.create),
+            modifier = Modifier.padding(vertical = 8.dp), text = stringResource(id = R.string.update),
             fontSize = 16.sp,
             color = Color.White
         )

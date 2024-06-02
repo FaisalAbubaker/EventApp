@@ -15,21 +15,14 @@ data class Tags(
     @ColumnInfo(name = "tag_color")
     val color: String,
     @ColumnInfo(name = "icon_name")
-    val iconName: String
+    val iconName: String,
+    @ColumnInfo(name = "isSelected")
+    var isSelected: Boolean,
 )
 
-//data class TaskWithTagLists(
-//    @Embedded val tag: Tags,
-//    @Relation(
-//        parentColumn = "tag_name",
-//        entityColumn = "task_tag_name"
-//    )
-//    var tasks: List<Task>
-//)
-
-@Entity(primaryKeys = ["task_id","tag_name"])
+@Entity(primaryKeys = ["task_Id", "tag_name"])
 data class TaskTagCrossRef(
-    @ColumnInfo(name = "task_id")
+    @ColumnInfo(name = "task_Id")
     val taskId: Long,
     @ColumnInfo(name = "tag_name")
     val tagName: String
@@ -39,7 +32,7 @@ data class TagWithTaskLists(
     @Embedded val tag: Tags,
     @Relation(
         parentColumn = "tag_name",
-        entityColumn = "task_id",
+        entityColumn = "task_Id",
         associateBy = Junction(TaskTagCrossRef::class)
     )
     var tasks: List<Task>
@@ -48,7 +41,7 @@ data class TagWithTaskLists(
 data class TaskWithTags(
     @Embedded val task: Task,
     @Relation(
-        parentColumn = "task_id",
+        parentColumn = "task_Id",
         entityColumn = "tag_name",
         associateBy = Junction(TaskTagCrossRef::class)
     )

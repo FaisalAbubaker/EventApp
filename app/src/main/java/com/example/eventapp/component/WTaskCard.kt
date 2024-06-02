@@ -1,9 +1,6 @@
 package com.example.eventapp.component
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,19 +10,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,23 +24,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavHostController
 import com.example.eventapp.data.entity.Tags
-import com.example.eventapp.data.entity.Task
-import com.example.eventapp.navigation.Screens
-import com.example.eventapp.repository.TaskRepository
-import com.example.eventapp.screens.task.TaskViewModel
 import com.example.eventapp.ui.theme.Navy
 import com.example.eventapp.ui.theme.PrimaryColor
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun TaskCard(taskId: Long?, taskTitle: String, timeFrom: String?, timeTo: String?, tag: List<Tags?>, task: Task,
-             viewModel: TaskViewModel, navController: NavHostController
+fun WTaskCard(taskId: Long?, taskTitle: String, timeFrom: String?, timeTo: String?, tag: List<Tags?>
 ) {
     val dividerHeight = remember {
         mutableStateOf(50.dp)
@@ -114,46 +95,6 @@ fun TaskCard(taskId: Long?, taskTitle: String, timeFrom: String?, timeTo: String
                     }
 
                 }
-                Box {
-                    Icon(
-                        Icons.Default.MoreVert,
-                        contentDescription = "",
-                        tint = Color.Gray,
-                        modifier = Modifier
-                            .size(24.dp)
-                            .clickable { expanded = true }
-                    )
-                    val context: Context = LocalContext.current
-                    DropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        DropdownMenuItem(
-                            text = { Text("Edit") },
-                            onClick = {
-                                navController.navigate("${Screens.MainApp.UpdateTaskScreen.route}/${taskId}")
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.Edit,
-                                    contentDescription = null
-                                )
-                            })
-                        DropdownMenuItem(
-                            text = { Text("Delete") },
-                            onClick = {
-                                viewModel.deleteTask(task)
-                                Toast.makeText(context, "Task deleted successfully", Toast.LENGTH_SHORT).show()
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    Icons.Outlined.Delete,
-                                    contentDescription = null
-                                )
-                            })
-
-                    }
-                }
             }
 
 
@@ -186,10 +127,10 @@ fun TaskCard(taskId: Long?, taskTitle: String, timeFrom: String?, timeTo: String
                 }
             }
 
-    }
+        }
 //to convert color to String and vice versa
 //    val color=Color.Gray.toArgb().toString()
 //    Color(color.toIntOrNull()?: PrimaryColor.toArgb())
 
-}
     }
+}

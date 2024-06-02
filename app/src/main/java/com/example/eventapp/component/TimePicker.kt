@@ -20,11 +20,13 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import com.example.eventapp.R
 import com.example.eventapp.ui.theme.Navy
 import com.example.eventapp.ui.theme.PrimaryColor
 import java.util.Locale
@@ -54,7 +56,7 @@ fun TimePickerDialog(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    "Edit Time",
+                    stringResource(id = R.string.edit_time),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(22.dp),
@@ -85,12 +87,12 @@ fun TimePickerDialog(
                 ) {
 
                     Text(
-                        "Reminder Mode",
+                        stringResource(id = R.string.reminder_mode),
                         fontSize = 16.sp,
                         color = Navy
                     )
                     Text(
-                        "Ring  >",
+                        stringResource(id = R.string.ring),
                         //   modifier = Modifier.padding(top = 8.dp),
                         fontSize = 14.sp,
                         color = PrimaryColor
@@ -112,7 +114,7 @@ fun TimePickerDialog(
                             onBackPress.invoke()
                         }, shape = RoundedCornerShape(16.dp)
                     ) {
-                        Text(text = "Cancel")
+                        Text(text = stringResource(id = R.string.cancel))
 
                     }
 
@@ -126,7 +128,7 @@ fun TimePickerDialog(
                             onBackPress.invoke()
                         }, shape = RoundedCornerShape(16.dp)
                     ) {
-                        Text(text = "Save", color = Color.White)
+                        Text(text = stringResource(id = R.string.save), color = Color.White)
                     }
 
                 }
@@ -206,7 +208,7 @@ fun RotaryPicker(
                 val isSelected = index == middleItem
                 val backgroundColor = if (isSelected) PrimaryColor else PrimaryColor.copy(0.3f)
                 val item = items[index % items.size]
-                val formattedItem = String.format(Locale.getDefault(), "%02d", item)
+                val formattedItem = String.format(Locale.ENGLISH, "%02d", item)
 
                 Text(
                     text = if (isSelected) (formattedItem.plus(

@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.style.TextAlign
@@ -29,10 +30,13 @@ import com.example.eventapp.ui.theme.PrimaryColor
 
 @Composable
 fun SplashScreen(navController: NavHostController){
-    Column(Modifier.fillMaxSize().background(Color.White)
-        .semantics {
-                   testTag = "SplashScreen"
-        },
+    Column(
+        Modifier
+            .fillMaxSize()
+            .background(Color.White)
+            .semantics {
+                testTag = "SplashScreen"
+            },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center) {
         Image(painter = painterResource(id = R.drawable.intro_image), contentDescription = "",
@@ -51,9 +55,10 @@ fun SplashScreen(navController: NavHostController){
                 .semantics {
                     testTag = "title text"
                 })
-        Text(text = "Plan what you will do to be more organized for today, tomorrow and beyond",
+        Text(text = stringResource(id = R.string.splash_sub),
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier
+                .padding(10.dp)
                 .semantics {
                     testTag = "description text"
                 })
@@ -64,10 +69,10 @@ fun SplashScreen(navController: NavHostController){
                 .width(304.dp)
                 .height(52.dp)
                 .semantics {
-                           testTag = "login button"
+                    testTag = "login button"
                 },
             colors = ButtonDefaults.buttonColors(PrimaryColor)) {
-            Text(text = "Login", fontSize = 18.sp, color = Color.White)
+            Text(text = stringResource(id = R.string.login), fontSize = 18.sp, color = Color.White)
         }
         Button(onClick = { navController.navigate(Screens.Authentication.SignUp.route) },
             modifier = Modifier
@@ -75,7 +80,7 @@ fun SplashScreen(navController: NavHostController){
                 .width(304.dp)
                 .height(52.dp),
             colors = ButtonDefaults.buttonColors(Color.White)){
-            Text(text = "Sign Up", fontSize = 18.sp,
+            Text(text = stringResource(id = R.string.sign_up), fontSize = 18.sp,
                 color = Color(0xFF6A74CD))
         }
 

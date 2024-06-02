@@ -29,6 +29,8 @@ fun CustomTextField(
     isReadOnly: Boolean = false,
     trailingIcon: @Composable (() -> Unit)? = null
 ) {
+    var isTitleValid by remember { mutableStateOf(true) }
+
     Column(modifier = modifier.padding(vertical = 12.dp)) {
         Text(
             label,
@@ -51,8 +53,10 @@ fun CustomTextField(
             value = value.value,
             onValueChange = {
                 value.value = it
-            })
-
+                isTitleValid = it.isNotBlank() // Validate if the title is not empty
+            },
+            isError = !isTitleValid,
+        )
     }
 }
 
