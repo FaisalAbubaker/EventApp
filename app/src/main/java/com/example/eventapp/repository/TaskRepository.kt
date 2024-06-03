@@ -63,4 +63,6 @@ class TaskRepository @Inject constructor(
     suspend fun getAllTasksWithTags(): List<TaskWithTags> {
         return taskDao.getAllTasksWithTags()
     }
+
+    fun getTasksWithTagsByDayOfCurrentWeek() = taskDao.getTasksWithTagsByDayOfCurrentWeek()
 }

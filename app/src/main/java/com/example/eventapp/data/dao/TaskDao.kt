@@ -1,6 +1,5 @@
 package com.example.eventapp.data.dao
 
-import androidx.privacysandbox.ads.adservices.adid.AdId
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -100,4 +99,12 @@ interface TaskDao {
     @Transaction
     @Query("SELECT * FROM task_table")
     suspend fun getAllTasksWithTags(): List<TaskWithTags>
+
+    // Function to get tasks with tags for each day of the current week
+    @Query("""
+        SELECT strftime('%Y-%m-%d', date) AS day, * FROM task_table
+        WHERE strftime('%Y-%W', date) = strftime('%Y-%W', 'now')
+        ORDER BY day
+    """)
+    fun getTasksWithTagsByDayOfCurrentWeek(): Flow<List<TaskWithTags>>
 }

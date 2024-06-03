@@ -18,8 +18,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TaskViewModel @Inject constructor(
-    private val taskRepository: TaskRepository
+    val taskRepository: TaskRepository
 ) : ViewModel() {
+
     val cancelledTasks = taskRepository.getTagWithTasksList(TaskType.Cancelled.type)
     val pendingTasks = taskRepository.getTagWithTasksList(TaskType.Pending.type)
     val completedTasks = taskRepository.getTagWithTasksList(TaskType.Completed.type)
@@ -45,7 +46,7 @@ class TaskViewModel @Inject constructor(
     val selectedTags = mutableStateOf<List<Tags>>(emptyList())
 
     var allTags: MutableStateFlow<List<Tags>> = MutableStateFlow(emptyList())
-
+    val taskInWeek = taskRepository.getTasksWithTagsByDayOfCurrentWeek()
     init {
         //add base tags
         viewModelScope.launch {
@@ -179,7 +180,6 @@ class TaskViewModel @Inject constructor(
             taskWithTags.value = taskRepository.searchCombined(query).taskResults
         }
     }
-
 
     fun deleteTask(task: Task) {
         viewModelScope.launch {

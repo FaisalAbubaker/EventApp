@@ -96,7 +96,7 @@ fun NavGraphBuilder.mainAppNavigation(
         }
         composable(Screens.MainApp.StaticsScreen.route) {
             val viewmodel: TaskViewModel = hiltViewModel()
-            StatisticsScreen()
+            StatisticsScreen(viewmodel)
         }
         composable(Screens.MainApp.SettingsScreen.route) {
             SettingsScreen(navController)
