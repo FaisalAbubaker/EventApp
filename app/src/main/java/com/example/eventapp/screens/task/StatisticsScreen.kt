@@ -37,9 +37,6 @@ import com.patrykandpatrick.vico.core.cartesian.data.columnSeries
 import com.patrykandpatrick.vico.core.cartesian.decoration.HorizontalLine
 import com.patrykandpatrick.vico.core.cartesian.layer.ColumnCartesianLayer
 import com.patrykandpatrick.vico.core.common.Dimensions
-import com.patrykandpatrick.vico.core.common.component.LineComponent
-import com.patrykandpatrick.vico.core.common.component.ShapeComponent
-import com.patrykandpatrick.vico.core.common.component.TextComponent
 import com.patrykandpatrick.vico.core.common.shape.Shape
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.isActive
@@ -156,22 +153,6 @@ private fun rememberComposeHorizontalLine(): HorizontalLine {
     )
 }
 
-private fun getViewHorizontalLine() =
-    HorizontalLine(
-        y = { HORIZONTAL_LINE_Y },
-        line = LineComponent(HORIZONTAL_LINE_COLOR, HORIZONTAL_LINE_THICKNESS_DP),
-        labelComponent =
-        TextComponent.build {
-            background = ShapeComponent(Shape.Pill, HORIZONTAL_LINE_COLOR)
-            padding =
-                Dimensions(
-                    HORIZONTAL_LINE_LABEL_HORIZONTAL_PADDING_DP,
-                    HORIZONTAL_LINE_LABEL_VERTICAL_PADDING_DP,
-                )
-            margins = Dimensions(HORIZONTAL_LINE_LABEL_MARGIN_DP)
-            typeface = Typeface.MONOSPACE
-        },
-    )
 
 private const val HORIZONTAL_LINE_Y = 14f
 private const val HORIZONTAL_LINE_COLOR = -2893786
